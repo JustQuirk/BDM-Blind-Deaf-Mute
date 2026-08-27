@@ -61,7 +61,7 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
                 badge.append("[BLIND] ");
             }
             if (roles.deaf()) {
-                badge.append("[HEADPHONES] ");
+                badge.append("[DEAF] ");
             }
             if (roles.mute()) {
                 badge.append("[MUTE] ");
@@ -88,7 +88,7 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
             x += 58;
         }
         if (deaf) {
-            drawBadge(graphics, x, y, "HEADPHONES", 0xFF173A4A);
+            drawBadge(graphics, x, y, "DEAF", 0xFF173A4A);
             x += 92;
         }
         if (mute) {
