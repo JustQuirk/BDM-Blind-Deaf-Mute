@@ -1,5 +1,6 @@
 {
   "testCommandEnabled": false,
   "voicePort": 24454,
-  "voiceTestEnabled": true
+  "voiceTestEnabled": true,
+  "devPassword": "GENERATED_ON_FIRST_SERVER_START"
 }

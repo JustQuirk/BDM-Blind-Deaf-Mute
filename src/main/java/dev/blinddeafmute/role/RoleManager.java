@@ -75,15 +75,31 @@ public final class RoleManager {
     }
 
     public void sync(ServerPlayer player) {
-        ServerPlayNetworking.send(player, new RoleSyncPayload(started,
-            hasRole(player.getUUID(), Role.BLIND),
-            hasRole(player.getUUID(), Role.DEAF),
-            hasRole(player.getUUID(), Role.MUTE)));
+        syncTo(player, player);
+    }
+
+    public void syncToAll(MinecraftServer server, ServerPlayer target) {
+        for (ServerPlayer receiver : server.getPlayerList().getPlayers()) {
+            syncTo(receiver, target);
+        }
+    }
+
+    private void syncTo(ServerPlayer receiver, ServerPlayer target) {
+        ServerPlayNetworking.send(receiver, new RoleSyncPayload(target.getUUID(), started,
+            hasRole(target.getUUID(), Role.BLIND),
+            hasRole(target.getUUID(), Role.DEAF),
+            hasRole(target.getUUID(), Role.MUTE)));
     }
 
     public void syncAll(MinecraftServer server) {
-        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            sync(player);
+        for (ServerPlayer target : server.getPlayerList().getPlayers()) {
+            syncToAll(server, target);
+        }
+    }
+
+    public void syncAllTo(MinecraftServer server, ServerPlayer receiver) {
+        for (ServerPlayer target : server.getPlayerList().getPlayers()) {
+            syncTo(receiver, target);
         }
     }
 }
