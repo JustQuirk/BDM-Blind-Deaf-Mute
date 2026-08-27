@@ -1,6 +1,5 @@
 package dev.blinddeafmute;
 
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import dev.blinddeafmute.role.RoleManager;
 import dev.blinddeafmute.config.BdmConfig;
 import net.fabricmc.api.ModInitializer;

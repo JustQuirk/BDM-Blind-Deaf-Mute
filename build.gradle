@@ -38,7 +38,6 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 		implementation "de.maxhenkel.voicechat:voicechat-api:${project.voicechat_api_version}"
 		modRuntimeOnly "de.maxhenkel.voicechat:voicechat-api:${project.voicechat_api_version}:fabric-stub"
-		modImplementation "maven.modrinth:modmenu:11.0.3"
 }
 
 processResources {

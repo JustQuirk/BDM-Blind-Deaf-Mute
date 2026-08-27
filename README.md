@@ -2,7 +2,7 @@
 
 Fabric server + client mod for Minecraft 1.21.x. It integrates with Simple Voice Chat and Mod Menu.
 
-Author: JustQuirk. Source: https://github.com/paprocki-tymon/BDM-Blind-Deaf-Mute
+Author: JustQuirk. Source: https://github.com/JustQuirk/BDM-Blind-Deaf-Mute
 
 ## Roles
 
@@ -12,13 +12,23 @@ Author: JustQuirk. Source: https://github.com/paprocki-tymon/BDM-Blind-Deaf-Mute
 - `/start` activates role effects for the server.
 - `/bdm:test` applies all three roles to the command sender; Blindness is tested for 10 seconds.
 
-The `/bdm:test` command is disabled by default. Open BDM in Mod Menu and enable it in the configuration screen before using it.
+The `/bdm:test` command is disabled by default. On the server, edit `config/bdm.json` and set `testCommandEnabled` to `true`, then restart the server before using it.
 
 Role commands and `/start` require operator permission level 2. Role state is stored on the server and synchronized to clients.
 
 ## Dependencies
 
-Install Fabric API, Simple Voice Chat, and Mod Menu on both the server and clients. The BDM config screen stores the configured UDP port and includes a voice setup check. Simple Voice Chat still needs the same port in its own server configuration.
+Install Fabric API and Simple Voice Chat on both the server and clients. Mod Menu is optional and can be used to view BDM in the installed-mod list. Server settings live in `config/bdm.json`; the configured UDP port must also match Simple Voice Chat's own server configuration.
+
+Example server configuration:
+
+```json
+{
+	"testCommandEnabled": false,
+	"voicePort": 24454,
+	"voiceTestEnabled": true
+}
+```
 
 ## Build
 
