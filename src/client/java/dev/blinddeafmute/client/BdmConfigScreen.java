@@ -75,10 +75,11 @@ public final class BdmConfigScreen extends Screen {
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         renderBackground(graphics, mouseX, mouseY, delta);
+        graphics.fill(0, 0, width, height, 0xFF10151D);
+        super.render(graphics, mouseX, mouseY, delta);
         graphics.drawCenteredString(font, title, width / 2, 25, 0xFFFFFFFF);
         graphics.drawCenteredString(font, Component.literal("Simple Voice Chat UDP port"), width / 2, 45, 0xFFCCCCCC);
         graphics.drawCenteredString(font, Component.literal("/bdm:test is disabled by default"), width / 2, 166, 0xFFAAAAAA);
-        super.render(graphics, mouseX, mouseY, delta);
     }
 
 }
