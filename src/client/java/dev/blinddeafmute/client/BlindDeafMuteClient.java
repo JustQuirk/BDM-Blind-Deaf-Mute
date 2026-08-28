@@ -58,13 +58,13 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
             }
             StringBuilder badge = new StringBuilder();
             if (roles.blind()) {
-                badge.append("[BLIND] ");
+                badge.append("[EYE COVER] ");
             }
             if (roles.deaf()) {
                 badge.append("[DEAF] ");
             }
             if (roles.mute()) {
-                badge.append("[MUTE] ");
+                badge.append("[MOUTH COVER] ");
             }
             player.setCustomName(Component.literal(badge + player.getName().getString()));
             player.setCustomNameVisible(true);
@@ -84,15 +84,15 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
         int x = 8;
         int y = 8;
         if (blind) {
-            drawBadge(graphics, x, y, "BLIND", 0xFF4A1F2A);
-            x += 58;
+            drawBadge(graphics, x, y, "EYE COVER", 0xFF4A1F2A);
+            x += 82;
         }
         if (deaf) {
             drawBadge(graphics, x, y, "DEAF", 0xFF173A4A);
             x += 92;
         }
         if (mute) {
-            drawBadge(graphics, x, y, "MUTE", 0xFF3B3320);
+            drawBadge(graphics, x, y, "MOUTH COVER", 0xFF3B3320);
         }
     }
 

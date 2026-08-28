@@ -6,11 +6,10 @@ Author: JustQuirk. Source: https://github.com/JustQuirk/BDM-Blind-Deaf-Mute
 
 ## Roles
 
-- `/blind <player>` toggles Blindness and the client status badge.
-- `/deaf <player>` prevents incoming Simple Voice Chat audio and shows headphones.
-- `/mute <player>` cancels the player's outgoing microphone packets.
-- `/start` activates role effects for the server.
-- `/bdm:test` applies all three roles to the command sender; Blindness is tested for 10 seconds.
+- `/blind <player>` toggles Blindness and an `[EYE COVER]` marker.
+- `/deaf <player>` toggles incoming Simple Voice Chat blocking and a `[DEAF]` marker.
+- `/mute <player>` toggles outgoing microphone blocking and a `[MOUTH COVER]` marker.
+- `/start` activates all assigned roles; assigning a role alone does not apply its effect.
 - `/bdm status` and `/bdm reload` are developer commands and are disabled by default.
 - `/dev <password>` unlocks the developer commands for the current session.
 

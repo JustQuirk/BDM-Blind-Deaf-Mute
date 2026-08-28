@@ -31,7 +31,7 @@ public final class BlindDeafMuteVoicePlugin implements VoicechatPlugin {
     @Override
     public void registerEvents(EventRegistration registration) {
         registration.registerEvent(MicrophonePacketEvent.class, event -> {
-            if (event.getSenderConnection() != null && BlindDeafMute.ROLES.hasRole(event.getSenderConnection().getPlayer().getUuid(), RoleManager.Role.MUTE)) {
+            if (BlindDeafMute.ROLES.isStarted() && event.getSenderConnection() != null && BlindDeafMute.ROLES.hasRole(event.getSenderConnection().getPlayer().getUuid(), RoleManager.Role.MUTE)) {
                 event.cancel();
             }
         });
@@ -43,7 +43,7 @@ public final class BlindDeafMuteVoicePlugin implements VoicechatPlugin {
     private void cancelForDeafReceiver(de.maxhenkel.voicechat.api.events.SoundPacketEvent<?> event) {
         if (event.getReceiverConnection() != null) {
             UUID receiver = event.getReceiverConnection().getPlayer().getUuid();
-            if (BlindDeafMute.ROLES.hasRole(receiver, RoleManager.Role.DEAF)) {
+            if (BlindDeafMute.ROLES.isStarted() && BlindDeafMute.ROLES.hasRole(receiver, RoleManager.Role.DEAF)) {
                 event.cancel();
             }
         }
