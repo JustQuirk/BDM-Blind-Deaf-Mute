@@ -64,22 +64,22 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
             RoleFlags roles = playerRoles.get(player.getUUID());
             if (roles != null && roles.hasAny()) {
                 drawPlayerRoleRow(graphics, player, roles, 8, y);
-                y += 24;
+                y += 48;
             }
         }
     }
 
     private static void drawPlayerRoleRow(GuiGraphics graphics, Player player, RoleFlags roles, int x, int y) {
-        graphics.fill(x, y, x + 240, y + 20, 0xAA10151D);
+        graphics.fill(x, y, x + 360, y + 44, 0xAA10151D);
         if (player instanceof AbstractClientPlayer clientPlayer) {
             var texture = clientPlayer.getSkin().body().texturePath();
-            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x + 2, y + 2, 8, 8, 8, 8, 64, 64);
-            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x + 2, y + 2, 40, 8, 8, 8, 64, 64);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x + 2, y + 2, 8, 8, 32, 32, 64, 64);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x + 2, y + 2, 40, 8, 32, 32, 64, 64);
         }
         StringBuilder label = new StringBuilder(player.getName().getString()).append("  ");
         if (roles.blind()) label.append("[BLIND] ");
         if (roles.deaf()) label.append("[DEAF] ");
         if (roles.mute()) label.append("[MUTE]");
-        graphics.drawString(Minecraft.getInstance().font, label.toString(), x + 22, y + 6, 0xFFFFFFFF, false);
+        graphics.drawString(Minecraft.getInstance().font, label.toString(), x + 40, y + 16, 0xFFFFFFFF, false);
     }
 }

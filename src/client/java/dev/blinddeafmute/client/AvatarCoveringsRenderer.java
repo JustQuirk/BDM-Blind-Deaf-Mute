@@ -28,15 +28,15 @@ public final class AvatarCoveringsRenderer {
         }
         OrderedSubmitNodeCollector ordered = collector.order(0);
         if (roles.blind()) {
-            submitCuboid(ordered, poseStack, -0.34f, 1.48f, -0.43f, 0.34f, 1.72f, -0.32f, 0xFF1F5CC7);
+            submitCuboid(ordered, poseStack, -0.50f, 1.43f, -0.52f, 0.50f, 1.78f, -0.36f, 0xFF1F5CC7);
         }
         if (roles.deaf()) {
-            submitCuboid(ordered, poseStack, -0.54f, 1.38f, -0.05f, -0.40f, 1.76f, 0.18f, 0xFF6B6B6B);
-            submitCuboid(ordered, poseStack, 0.40f, 1.38f, -0.05f, 0.54f, 1.76f, 0.18f, 0xFF6B6B6B);
-            submitCuboid(ordered, poseStack, -0.42f, 1.66f, -0.06f, 0.42f, 1.76f, 0.08f, 0xFF6B6B6B);
+            submitCuboid(ordered, poseStack, -0.62f, 1.30f, -0.18f, -0.42f, 1.84f, 0.24f, 0xFF6B6B6B);
+            submitCuboid(ordered, poseStack, 0.42f, 1.30f, -0.18f, 0.62f, 1.84f, 0.24f, 0xFF6B6B6B);
+            submitCuboid(ordered, poseStack, -0.50f, 1.70f, -0.16f, 0.50f, 1.84f, 0.18f, 0xFF6B6B6B);
         }
         if (roles.mute()) {
-            submitCuboid(ordered, poseStack, -0.24f, 1.18f, -0.43f, 0.24f, 1.38f, -0.32f, 0xFFB82E36);
+            submitCuboid(ordered, poseStack, -0.38f, 1.08f, -0.52f, 0.38f, 1.42f, -0.36f, 0xFFB82E36);
         }
     }
 
