@@ -2,12 +2,12 @@ package dev.blinddeafmute.client;
 
 import dev.blinddeafmute.network.RoleSyncPayload;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Map;
@@ -20,6 +20,14 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
     private static boolean deaf;
     private static boolean mute;
     private static final Map<UUID, RoleFlags> playerRoles = new ConcurrentHashMap<>();
+
+    public static boolean isStarted() {
+        return started;
+    }
+
+    public static RoleFlags rolesFor(UUID playerId) {
+        return playerRoles.get(playerId);
+    }
 
     @Override
     public void onInitializeClient() {
@@ -39,40 +47,10 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
             });
         });
         HudRenderCallback.EVENT.register((guiGraphics, tickDelta) -> renderStatus(guiGraphics));
-        ClientTickEvents.END_CLIENT_TICK.register(BlindDeafMuteClient::updateRoleNameplates);
     }
 
-    private static void updateRoleNameplates(Minecraft client) {
-        if (client.level == null) {
-            return;
-        }
-        for (Player player : client.level.players()) {
-            if (player == client.player) {
-                continue;
-            }
-            RoleFlags roles = playerRoles.get(player.getUUID());
-            if (!started || roles == null || !roles.hasAny()) {
-                player.setCustomName(null);
-                player.setCustomNameVisible(false);
-                continue;
-            }
-            StringBuilder badge = new StringBuilder();
-            if (roles.blind()) {
-                badge.append("[EYE COVER] ");
-            }
-            if (roles.deaf()) {
-                badge.append("[DEAF] ");
-            }
-            if (roles.mute()) {
-                badge.append("[MOUTH COVER] ");
-            }
-            player.setCustomName(Component.literal(badge + player.getName().getString()));
-            player.setCustomNameVisible(true);
-        }
-    }
-
-    private record RoleFlags(boolean blind, boolean deaf, boolean mute) {
-        private boolean hasAny() {
+    public record RoleFlags(boolean blind, boolean deaf, boolean mute) {
+        public boolean hasAny() {
             return blind || deaf || mute;
         }
     }
@@ -81,24 +59,27 @@ public final class BlindDeafMuteClient implements ClientModInitializer {
         if (!started || Minecraft.getInstance().player == null) {
             return;
         }
-        int x = 8;
         int y = 8;
-        if (blind) {
-            drawBadge(graphics, x, y, "EYE COVER", 0xFF4A1F2A);
-            x += 82;
-        }
-        if (deaf) {
-            drawBadge(graphics, x, y, "DEAF", 0xFF173A4A);
-            x += 92;
-        }
-        if (mute) {
-            drawBadge(graphics, x, y, "MOUTH COVER", 0xFF3B3320);
+        for (Player player : Minecraft.getInstance().level.players()) {
+            RoleFlags roles = playerRoles.get(player.getUUID());
+            if (roles != null && roles.hasAny()) {
+                drawPlayerRoleRow(graphics, player, roles, 8, y);
+                y += 24;
+            }
         }
     }
 
-    private static void drawBadge(GuiGraphics graphics, int x, int y, String label, int color) {
-        int width = Minecraft.getInstance().font.width(label) + 12;
-        graphics.fill(x, y, x + width, y + 16, color);
-        graphics.drawString(Minecraft.getInstance().font, label, x + 6, y + 4, 0xFFFFFFFF, false);
+    private static void drawPlayerRoleRow(GuiGraphics graphics, Player player, RoleFlags roles, int x, int y) {
+        graphics.fill(x, y, x + 240, y + 20, 0xAA10151D);
+        if (player instanceof AbstractClientPlayer clientPlayer) {
+            var texture = clientPlayer.getSkin().body().texturePath();
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x + 2, y + 2, 8, 8, 8, 8, 64, 64);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x + 2, y + 2, 40, 8, 8, 8, 64, 64);
+        }
+        StringBuilder label = new StringBuilder(player.getName().getString()).append("  ");
+        if (roles.blind()) label.append("[BLIND] ");
+        if (roles.deaf()) label.append("[DEAF] ");
+        if (roles.mute()) label.append("[MUTE]");
+        graphics.drawString(Minecraft.getInstance().font, label.toString(), x + 22, y + 6, 0xFFFFFFFF, false);
     }
 }

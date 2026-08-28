@@ -6,9 +6,9 @@ Author: JustQuirk. Source: https://github.com/JustQuirk/BDM-Blind-Deaf-Mute
 
 ## Roles
 
-- `/blind <player>` toggles Blindness and an `[EYE COVER]` marker.
-- `/deaf <player>` toggles incoming Simple Voice Chat blocking and a `[DEAF]` marker.
-- `/mute <player>` toggles outgoing microphone blocking and a `[MOUTH COVER]` marker.
+- `/blind <player>` toggles Blindness and a physical blue eye covering on the avatar.
+- `/deaf <player>` toggles incoming Simple Voice Chat blocking and physical gray headphones.
+- `/mute <player>` toggles outgoing microphone blocking and a physical red mouth covering.
 - `/start` activates all assigned roles; assigning a role alone does not apply its effect.
 - `/bdm status` and `/bdm reload` are developer commands and are disabled by default.
 - `/dev <password>` unlocks the developer commands for the current session.
@@ -31,7 +31,7 @@ Without unlocking, `/bdm status` and `/bdm reload` print a red disabled message 
 
 ## Dependencies
 
-Install Fabric API and Simple Voice Chat on both the server and clients. Mod Menu is optional and can be used to view BDM in the installed-mod list. Server settings live in `config/bdm.json`; the configured UDP port must also match Simple Voice Chat's own server configuration. Other players show their active roles in their in-world nameplates.
+Install Fabric API and Simple Voice Chat on both the server and clients. Mod Menu is optional and can be used to view BDM in the installed-mod list. Server settings live in `config/bdm.json`; the configured UDP port must also match Simple Voice Chat's own server configuration. After `/start`, every client shows a stacked top-left roster with each affected player's skin head and active roles.
 
 Example server configuration:
 
